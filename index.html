@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Venom V2.0 - Automated Trading Bot</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container header-flex">
+      <h1 class="logo">Venom <span>V2.0</span></h1>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="pay.html" class="btn-primary">Buy Now</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-flex">
+      <div class="hero-text">
+        <h2>Unlock the power of automated trading</h2>
+        <p class="desc">
+          Venom V2.0 is optimized for profitability with top notch risk management.
+        </p>
+        <div class="pricing">
+          <span class="promo-price">$90</span>
+          <span class="old-price">$140</span>
+        </div>
+        <div class="promo-countdown" id="countdown"></div>
+        <a href="pay.html" class="btn-primary btn-large">Get Venom V2.0 Now</a>
+      </div>
+      <div class="hero-visuals">
+        <div class="device-container">
+          <img src="iphone-trades.png" alt="iPhone trading" class="device iphone" />
+          <img src="laptop-mt5.png" alt="Laptop with MT5" class="device laptop" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features-section">
+    <div class="container">
+      <h3>Why Choose Venom V2.0?</h3>
+      <ul class="features-list">
+        <li>Advanced Risk Management for Safe Trading</li>
+        <li>Automated Entries & Exits Based on Market Signals</li>
+        <li>Works Across Forex, Crypto, Commodities & More</li>
+        <li>Easy Setup & Real-Time Trade Execution</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials-section">
+    <div class="container">
+      <h3>What Traders Around The World Are Saying</h3>
+      <div class="testimonial-slider">
+        <div class="testimonial-slide">
+          <p>"Venom V2.0 changed my trading game. Consistent profits and peace of mind!"</p>
+          <h4>- Samuel K. (Uganda)</h4>
+        </div>
+        <div class="testimonial-slide">
+          <p>"A powerful bot that saved me hours every day. Highly recommended."</p>
+          <h4>- Maria G. (Kenya)</h4>
+        </div>
+        <div class="testimonial-slide">
+          <p>"Best automated trading bot I've used — accurate and reliable."</p>
+          <h4>- Liam B. (USA)</h4>
+        </div>
+        <div class="testimonial-slide">
+          <p>"Great customer support and solid results from day one."</p>
+          <h4>- Aisha M. (Nigeria)</h4>
+        </div>
+        <div class="testimonial-slide">
+          <p>"Venom is a game-changer for traders in South Africa."</p>
+          <h4>- Thabo S. (South Africa)</h4>
+        </div>
+        <div class="testimonial-slide">
+          <p>"Profitability increased significantly after using Venom V2.0."</p>
+          <h4>- Elena R. (Spain)</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <p>© 2025 Venom V2.0 Trading Bot. All rights reserved.</p>
+      <p>Contact: <a href="mailto:jeromtrades01@gmail.com">jeromtrades01@gmail.com</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Countdown timer to Sunday 11:00pm (next occurrence)
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown() {
+      const now = new Date();
+      const day = now.getDay(); // 0 (Sun) - 6 (Sat)
+      const hour = now.getHours();
+      const minute = now.getMinutes();
+      const second = now.getSeconds();
+
+      // Find next Sunday 23:00:00
+      let daysUntilSunday = (7 - day) % 7;
+      let promoEnd = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilSunday, 23, 0, 0);
+
+      // If it's Sunday after 23:00, move to next week
+      if (now > promoEnd) {
+        promoEnd = new Date(promoEnd.getTime() + 7 * 24 * 60 * 60 * 1000);
+      }
+
+      const diff = promoEnd - now;
+      if (diff <= 0) {
+        countdownEl.textContent = 'Promo ended. Price back to normal.';
+        document.querySelector('.promo-price').style.display = 'none';
+        document.querySelector('.old-price').classList.remove('strikethrough');
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      countdownEl.textContent = `Promo ends in: ${d}d ${h}h ${m}m ${s}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Testimonial slider
+    const slides = document.querySelectorAll('.testimonial-slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.transform = `translateX(${100 * (i - index)}%)`;
+        slide.style.opacity = i === index ? '1' : '0.3';
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    showSlide(currentSlide);
+    setInterval(nextSlide, 6000);
+  </script>
+</body>
+</html>
